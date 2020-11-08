@@ -27,8 +27,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y kubectl
 
-      - name: Check kubectl version
-        run: kubectl version
+      - name: Attach digital ocean clustera
+        run: mv k8s-1-19-3-do-2-sfo2-1604833180975-kubeconfig.yaml .kube/config
+
+      - name: Get nodes
+        run: kubectl get nodes -o wide
 
 
 
