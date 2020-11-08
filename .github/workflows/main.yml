@@ -26,10 +26,13 @@ jobs:
           sudo mv ./kubectl /usr/local/bin/kubectl
 
       - name: Apply ingress controller
+        working-directory: ./infra/k8s
         run : kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.0/deploy/static/provider/do/deploy.yaml
 
       - name: Deploy k8s
-        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -f ./infra/k8s/*
+        working-directory: ./infra/k8s
+        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -f *
 
       - name: Get nodes
+        working-directory: ./infra/k8s
         run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml get nodes -o wide
