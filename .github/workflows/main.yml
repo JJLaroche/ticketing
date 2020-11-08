@@ -26,7 +26,9 @@ jobs:
           sudo mv ./kubectl /usr/local/bin/kubectl
 
       - name: Attach digital ocean clustera
-        run: mv k8s-1-19-3-do-2-sfo2-1604833180975-kubeconfig.yaml ~/.kube/config
+        run: |
+          export KUBECONFIG=~/.kube/config
+          mv k8s-1-19-3-do-2-sfo2-1604833180975-kubeconfig.yaml ~/.kube/config
 
       - name: Get nodes
         run: kubectl get nodes -o wide
