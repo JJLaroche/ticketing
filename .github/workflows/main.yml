@@ -26,7 +26,7 @@ jobs:
           sudo mv ./kubectl /usr/local/bin/kubectl
 
       - name: Deploy k8s
-        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -k infra/k8s
+        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -k ./infra/k8s
 
       - name: Get nodes
         run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml get nodes -o wide
