@@ -15,6 +15,8 @@ jobs:
 
       - name: Build and Deploy Image
         working-directory: ./auth
-        run: docker build -f Dockerfile -t 11071994/auth .
+        run: |
+          docker build -f Dockerfile -t 11071994/auth .
+          docker push 11071994/auth
 
 
