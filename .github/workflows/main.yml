@@ -25,6 +25,9 @@ jobs:
           chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
 
+      - name: Add secrets 
+        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+
       - name: Deploy k8s
         run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -f ./infra/k8s
 
