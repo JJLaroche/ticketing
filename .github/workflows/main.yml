@@ -19,15 +19,14 @@ jobs:
           docker build -f Dockerfile -t 11071994/auth .
           docker push 11071994/auth
 
-      - uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG  }} | base64
+      - name: Install kubernetes
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
 
-      - uses: actions-hub/kubectl@master
-        with:
-          args: get nodes
+      - name: Attach digital ocean clustera
+        run: mv k8s-1-19-3-do-2-sfo2-1604833180975-kubeconfig.yaml ~/.kube/config
 
-  
-
-
-
+      - name: Get nodes
+        run: kubectl get nodes -o wide
