@@ -31,7 +31,7 @@ jobs:
 
       - name: Deploy k8s
         working-directory: ./infra/k8s
-        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply all
+        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml apply -k .
 
       - name: Get nodes
         working-directory: ./infra/k8s
