@@ -19,17 +19,11 @@ jobs:
           docker build -f Dockerfile -t 11071994/auth .
           docker push 11071994/auth
 
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install kubernetes
+        run: |
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
 
-      - name: Log in to DigitalOcean Container Registry with short-lived credentials
-        run: doctl registry login --expiry-seconds 600
-
-      - name: Save DigitalOcean kubeconfig
-        run: doctl kubernetes cluster kubeconfig save k8s-1-19-3-do-2-sfo2-1604833180975
-
-      - name: Deploy to DigitalOcean Kubernetes
-        working-directory: ./infra/k8s
-        run: kubectl apply -f all
+      - name: Get nodes
+        run: kubectl --kubeconfig=k8s-1-19-3-do-2-sfo2-1604837694223-kubeconfig.yaml get nodes
